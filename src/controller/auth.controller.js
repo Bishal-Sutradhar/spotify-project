@@ -59,9 +59,59 @@ const registerUser = async (req, res) => {
 }
 
 //LOGIN USER
+const loginUser = async (req, res) => {
 
+    const { email, password } = req.body
+
+    const user = await userModel.findOne(
+        email
+    )
+
+    if(!user) {
+        return res.status(401).json({
+            message: "User not found!"
+        })
+    }
+
+    const isMatch = await bcrypt.compare(
+        password,
+        user.password
+    )
+
+    if(!isMatch) {
+        return res.status(401).json({
+            message: "Unauthorized"
+        })
+    }
+
+    try {
+
+        const token = jwt.sign(
+            {
+                id: user._id
+            },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: "7d"
+            }
+        )
+
+        res.cookie("token", token)
+
+        res.status(200).json({
+            message: "User logged in successfully"
+        })
+
+    } catch(err) {
+        console.error(`Critical login system error: ${err.message}`)
+
+        return res.status(500).json({
+            message: "Something went wrong on our end! Please try again later."
+        })
+    }
+}
 
 
 //LOGOUT USER
 
-module.exports = { registerUser }
+module.exports = { registerUser, loginUser }
