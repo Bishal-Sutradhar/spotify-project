@@ -5,10 +5,13 @@ const bcrypt = require("bcrypt")
 //REGISTER USER
 const registerUser = async (req, res) => {
 
-    const { username, email, password, role } = req.body
+    const { username, email, password, role="user" } = req.body
 
-    const isUserAlreadyExists = userModel.findOne({
-        email
+    const isUserAlreadyExists = await userModel.findOne({
+        $or:[
+            {username},
+            {email}
+        ]
     })
 
     if(isUserAlreadyExists) {
@@ -25,16 +28,16 @@ const registerUser = async (req, res) => {
 
     try {
 
-        const hashedPassword = bcrypt.hash(
+        const hashedPassword = await bcrypt.hash(
             password,
             10
         )
 
-        const user = userModel.create({
-            username: username,
-            email: email,
+        const user = await userModel.create({
+            username,
+            email,
             password: hashedPassword,
-            role: role
+            role
         })
 
         const token = jwt.sign(
@@ -66,9 +69,9 @@ const loginUser = async (req, res) => {
 
     const { email, password } = req.body
 
-    const user = await userModel.findOne(
+    const user = await userModel.findOne({
         email
-    )
+    })
 
     if(!user) {
         return res.status(401).json({
