@@ -11,10 +11,10 @@ const uploadFile = async (buffer, originalname) => {
 
   const result = await client.files.upload({
     file: buffer.toString('base64'),
-    fileName: originalname
+    fileName: "music_" + Date.now(),
+    folder: "spotify-project/music"
   })
 
-  console.log(result)
 
   return(result)
 
