@@ -1,6 +1,6 @@
 const musicModel = require("../models/music.model")
 const jwt = require("jsonwebtoken")
-const {uploadFile} = require("../services/storage.service")
+const uploadFile = require("../services/storage.service")
 
 const createMusic = async (req, res) => {
 
@@ -12,14 +12,14 @@ const createMusic = async (req, res) => {
         })
     }
 
+    const decoded = jwt.verify(
+        token,
+        process.env.JWT_SECRET
+    )
+   
+
     try {
-        const decoded = jwt.verify(
-            token,
-            process.env.JWT_SECRET
-        )
-
-
-        if(decoded.role != "artist") {
+        if(decoded.role !== "artist") {
             return res.status(403).json({
                 message: "You do not have access to create an music."
             })
@@ -35,10 +35,12 @@ const createMusic = async (req, res) => {
 
     const result = await uploadFile(file.buffer)
 
-    const music = musicModel.create({
+    const music = await musicModel.create({
         uri: result.url,
+        title,
         artist: decoded.id
     })
+
 
     res.status(201).json({
         message: "Music uploaded successfully!",
