@@ -1,5 +1,6 @@
 const musicModel = require("../models/music.model")
 const jwt = require("jsonwebtoken")
+const {uploadFile} = require("../services/storage.service")
 
 const createMusic = async (req, res) => {
 
@@ -31,6 +32,23 @@ const createMusic = async (req, res) => {
 
     const {title} = req.body
     const file = req.file
+
+    const result = await uploadFile(file.buffer)
+
+    const music = musicModel.create({
+        uri: result.url,
+        artist: decoded.id
+    })
+
+    res.status(201).json({
+        message: "Music uploaded successfully!",
+        music: {
+            id: music._id,
+            uri: music.uri,
+            title: music.title,
+            artist: music.artist
+        }
+    })
 
 }
 
