@@ -6,5 +6,6 @@ const upload = require("../middleware/upload.middleware")
 const router = express.Router()
 
 router.post("/upload", upload.single("music"), authMiddleware, musicController.createMusic)
+router.post("/album", authMiddleware, musicController.createAlbum)
 
 module.exports = router
