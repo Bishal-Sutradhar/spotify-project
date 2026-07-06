@@ -4,22 +4,8 @@ const uploadFile = require("../services/storage.service")
 
 const createMusic = async (req, res) => {
 
-    const token = req.cookies.token
-    
-    if(!token) {
-        return res.status(401).json({
-            message: "Unauthorized"
-        })
-    }
-
-    const decoded = jwt.verify(
-        token,
-        process.env.JWT_SECRET
-    )
-   
-
     try {
-        if(decoded.role !== "artist") {
+        if(req.user.role !== "artist") {
             return res.status(403).json({
                 message: "You do not have access to create an music."
             })
@@ -31,14 +17,14 @@ const createMusic = async (req, res) => {
     }
 
     const {title} = req.body
-    const file = req.file
+    const {buffer} = req.file
 
-    const result = await uploadFile(file.buffer)
+    const result = await uploadFile(buffer)
 
     const music = await musicModel.create({
         uri: result.url,
         title,
-        artist: decoded.id
+        artist: req.user.id
     })
 
 
