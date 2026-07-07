@@ -41,17 +41,18 @@ A Spotify-inspired backend built with **Node.js**, **Express.js**, and **MongoDB
 ```text
 spotify-backend/
 │
-├── config/
-├── controllers/
-├── middleware/
-├── models/
-├── routes/
-├── utils/
+├── src/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   └── app.js
 │
-├── app.js
 ├── server.js
-├── package.json
 ├── .env
+├── .gitignore
+├── package.json
+├── package-lock.json
 └── README.md
 ```
 
@@ -62,37 +63,19 @@ spotify-backend/
 Clone the repository
 
 ```bash
-git clone https://github.com/your-username/spotify-backend.git
+git clone https://github.com/Bishal-Sutradhar/spotify-project.git
 ```
 
 Navigate to the project
 
 ```bash
-cd spotify-backend
+cd spotify-project
 ```
 
 Install dependencies
 
 ```bash
-npm install
-```
-
----
-
-## 🔑 Environment Variables
-
-Create a `.env` file in the project root.
-
-```env
-PORT=5000
-
-MONGODB_URI=your_mongodb_connection_string
-
-JWT_SECRET=your_jwt_secret
-
-IMAGEKIT_PUBLIC_KEY=your_public_key
-IMAGEKIT_PRIVATE_KEY=your_private_key
-IMAGEKIT_URL_ENDPOINT=your_url_endpoint
+npm i
 ```
 
 ---
@@ -136,6 +119,7 @@ npm start
 
 ### Artists
 - Upload Songs
+- Create Albums
 - Manage Songs
 
 ### Media
@@ -195,30 +179,9 @@ Contributions are welcome!
 
 1. Fork the repository
 2. Create a new feature branch
-
-```bash
-git checkout -b feature/your-feature-name
-```
-
 3. Commit your changes
-
-```bash
-git commit -m "Add new feature"
-```
-
 4. Push to GitHub
-
-```bash
-git push origin feature/your-feature-name
-```
-
 5. Open a Pull Request
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License.
 
 ---
 
@@ -226,8 +189,7 @@ This project is licensed under the MIT License.
 
 **Bishal Sutradhar**
 
-GitHub: https://github.com/your-github-username
-
+GitHub: https://github.com/Bishal-Sutradhar 
 ---
 
 ⭐ If you like this project, consider giving it a **Star** on GitHub!
