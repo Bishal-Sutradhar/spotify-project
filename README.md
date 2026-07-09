@@ -192,4 +192,4 @@ Contributions are welcome!
 GitHub: https://github.com/Bishal-Sutradhar 
 ---
 
-⭐ If you like this project, consider giving it a **Star** on GitHub!
+If you like this project, consider giving it a **Star** ⭐️ on GitHub!
