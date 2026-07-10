@@ -22,7 +22,7 @@ const authMiddleware = (req, res, next) => {
         next()
 
     } catch(err) {
-        console.log(`Verification failed: ${err.message}`)
+        console.error(`Verification failed: ${err.message}`)
 
         return res.status(401).json({
             message: "Unauthorized"
