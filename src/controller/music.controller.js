@@ -70,7 +70,7 @@ const createAlbum = async (req, res) => {
         console.error(`Error while creating album: ${err.message}`)
 
         res.status(500).json({
-            message: "Internal server error"
+            message: "Internal server error on our end"
         })
     }
 }
