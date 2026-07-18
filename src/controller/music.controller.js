@@ -95,4 +95,17 @@ const getAllAlbums = async (req, res) => {
     })
 }
 
-module.exports = { createMusic, createAlbum, getAllMusics, getAllAlbums }
+const getAlbumsById = async (req, res) => {
+
+    const id = req.params.albumId
+
+    const album = await albumModel.findById(id).populate("artist", "username email").populate("musics")
+
+    res.status(200).json({
+        message: "Album fetched successfully!",
+        album: album
+    })
+
+}
+
+module.exports = { createMusic, createAlbum, getAllMusics, getAllAlbums, getAlbumsById }
